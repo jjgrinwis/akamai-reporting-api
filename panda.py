@@ -23,8 +23,12 @@ if __name__ == '__main__':
     df = df.astype({"allBytesOffload": float})
     df['allBytesOffload'] = df['allBytesOffload'].round(decimals=2)
 
+    # let get everything with <50% offload
+    bad_offload = df[df['allBytesOffload'] < 50]
+
     # let's sort our results on offload and edgebytes
-    output = (df.sort_values(
+    output = (bad_offload.sort_values(
         ['allBytesOffload', 'allEdgeBytes'], ascending=[True, False]))
 
+    print(f"we have {len(output.index)} objects with a low offload %\n")
     print(output.head(100))
