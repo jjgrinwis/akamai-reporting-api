@@ -19,7 +19,7 @@ class MyAkamai():
 
         # set start and end date
         # let's use an interval of 7 days
-        interval = 7
+        interval = 30
         end_date = datetime.date.today()
         start_date = end_date - datetime.timedelta(interval)
 

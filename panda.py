@@ -16,7 +16,7 @@ if __name__ == '__main__':
     # print(reporting.get_hits_by_cpcode(cpcodes))
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
-    # the from_dict is setting everything column to an object(df.info())
+    # the from_dict is setting every column to an object(df.info()) so we need to fix that.
     df = pd.DataFrame.from_dict(reporting.get_urls_by_cpcode(cpcodes))
     df = df.astype({"allEdgeBytes": int})
     df = df.astype({"allOriginBytes": int})
