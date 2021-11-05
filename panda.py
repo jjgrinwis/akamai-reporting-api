@@ -7,7 +7,7 @@ import pandas as pd
 if __name__ == '__main__':
     # accountSwitchKey (Akamai internal)
     accountSwitchKey = ""
-    section = ''
+    section = 'gss'
 
     # user cpcodes list to filter on specific cpcodes
     cpcodes = []
@@ -22,6 +22,8 @@ if __name__ == '__main__':
     df = df.astype({"allOriginBytes": int})
     df = df.astype({"allBytesOffload": float})
     df['allBytesOffload'] = df['allBytesOffload'].round(decimals=2)
+
+    print(f"{len(df.index)} items found based on used regex\n")
 
     # let get everything with <50% offload
     bad_offload = df[df['allBytesOffload'] < 50]
