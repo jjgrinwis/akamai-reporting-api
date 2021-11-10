@@ -6,14 +6,14 @@ import pandas as pd
 
 if __name__ == '__main__':
     # accountSwitchKey (Akamai internal)
-    accountSwitchKey = ""
+    accountSwitchKey = "F-AC-1020908:1-5G3LB"
     section = 'gss'
 
     # cpcodes list to filter on specific cpcodes
     cpcodes = []
 
+    # create connection to Akamai API endpoint.
     reporting = MyAkamai(section, accountSwitchKey)
-    # print(reporting.get_hits_by_cpcode(cpcodes))
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     # let's sort our results on offload and edgebytes
     output = (bad_offload.sort_values(
-        ['allBytesOffload', 'allEdgeBytes'], ascending=[True, False]))
+        ['allBytesOffload', 'allOriginBytes'], ascending=[True, False]))
 
     print(f"we have {len(output.index)} objects with a low offload %\n")
 
