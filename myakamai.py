@@ -58,11 +58,11 @@ class MyAkamai():
 
         # our request body. A dict which will be transferred to json by requests module
         # cpcodes should be an array but can be empty to get all cpcodes and we can include a filter
-        body = {"objectType": "cpcode", "objectIds": cpcodes, "limit": 5000}
+        body = {"objectType": "cpcode", "objectIds": cpcodes, "limit": 10000}
 
         # we can add a filters to the POST body including a regex via url_match
         # in this example we're just filtering some extensions we know that can be cached
-        # this will match .woff and .woff2 but only .js files, json is ignored.
+        # this will match .woff and .woff2 but only .js files, json is ignored etc.
         # you can extend this to any object/path you know is capable of being cached
         body["filters"] = {"url_match": ["\\.woff|\\.js$|\\.png$|\\.svg"]}
 
