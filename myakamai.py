@@ -19,7 +19,7 @@ class MyAkamai():
 
         # set start and end date
         # let's use an interval of 7 days
-        interval = 30
+        interval = 7
         end_date = datetime.date.today()
         start_date = end_date - datetime.timedelta(interval)
 
@@ -63,8 +63,8 @@ class MyAkamai():
         # we can add a filters to the POST body including a regex via url_match
         # in this example we're just filtering some extensions we know that can be cached
         # this will match .woff and .woff2 but only .js files, json is ignored.
-        # you can extend this to any object you know is capable of being cached
-        body["filters"] = {"url_match": ["\\.woff|\\.js$"]}
+        # you can extend this to any object/path you know is capable of being cached
+        body["filters"] = {"url_match": ["\\.woff|\\.js$|\\.png$|\\.svg"]}
 
         # create our url to lookup the bytes-by-cpcode statistics
         # https://developer.akamai.com/api/core_features/reporting/urlbytes-by-url.html

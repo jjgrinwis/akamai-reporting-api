@@ -9,7 +9,7 @@ if __name__ == '__main__':
     accountSwitchKey = ""
     section = 'gss'
 
-    # user cpcodes list to filter on specific cpcodes
+    # cpcodes list to filter on specific cpcodes
     cpcodes = []
 
     reporting = MyAkamai(section, accountSwitchKey)
@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     print(f"{len(df.index)} items found based on used regex\n")
 
-    # let get everything with <50% offload
+    # let's get everything with <50% offload
     bad_offload = df[df['allBytesOffload'] < 50]
 
     # let's sort our results on offload and edgebytes
@@ -33,4 +33,10 @@ if __name__ == '__main__':
         ['allBytesOffload', 'allEdgeBytes'], ascending=[True, False]))
 
     print(f"we have {len(output.index)} objects with a low offload %\n")
-    print(output.head(100))
+
+    # let's creat a .csv with all objects with a low offload and let's ignore the index
+    output.to_csv(f"results/{reporting.end}.csv", index=False)
+
+    print(
+        f"top 5 files with low offload. The complete list can be found here: results/{reporting.end}.csv\n")
+    print(output.head(5))
