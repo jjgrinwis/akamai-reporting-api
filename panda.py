@@ -6,7 +6,7 @@ import pandas as pd
 
 if __name__ == '__main__':
     # accountSwitchKey (Akamai internal)
-    accountSwitchKey = "F-AC-1020908:1-5G3LB"
+    accountSwitchKey = ""
     section = 'gss'
 
     # cpcodes list to filter on specific cpcodes
