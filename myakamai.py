@@ -1,5 +1,6 @@
 from akamai.edgegrid import EdgeGridAuth, EdgeRc
 from urllib.parse import urljoin
+from pprint import pprint as pp
 
 import requests
 import datetime
@@ -83,6 +84,31 @@ class MyAkamai():
         # just return empty list if anthing went wrong.
         return([])
 
+    def get_all_cpcodes(self):
+        ''' return a dict with all cpcodeId:cpcodeName '''
+
+        # create an empty dict
+        cpcodes = {}
+
+        # create our url to get all the cpcodes
+        # https://techdocs.akamai.com/cp-codes/reference/cpcodes
+        url = urljoin(
+            self.baseurl, '/cprg/v1/cpcodes?accountSwitchKey={}'.format(self.ask))
+
+        # get al cpcodes from our cpcodes endpoint
+        r = self.s.get(url)
+
+        # if everthing is ok, let create a dict with our cpcode info
+        if r.status_code == requests.codes.ok:
+            results = r.json()
+
+            # using dictionary comprehension we're creating a dict with cpcodeId:cpcodeName
+            cpcodes = {cpcode['cpcodeId']: cpcode['cpcodeName']
+                       for cpcode in results['cpcodes']}
+
+        # just return the empty dict if anything went wrong
+        return(cpcodes)
+
 
 if __name__ == '__main__':
     # accountSwitchKey (Akamai internal)
@@ -95,5 +121,5 @@ if __name__ == '__main__':
     reporting = MyAkamai(section, accountSwitchKey)
     # print(reporting.get_hits_by_cpcode(cpcodes))
 
-    # now let's load our list as a panda's dataframe
-    print(reporting.get_urls_by_cpcode(cpcodes))
+    # now let's get our cpcode dictionary
+    cpcodes = reporting.get_all_cpcodes()

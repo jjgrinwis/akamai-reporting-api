@@ -12,7 +12,10 @@ if __name__ == '__main__':
     # cpcodes list to filter on specific cpcodes
     cpcodes = []
 
-    # create connection to Akamai API endpoint.
+    # offload percentage
+    offload = 50
+
+    # create connection to Akamai reporting API endpoint.
     reporting = MyAkamai(section, accountSwitchKey)
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
@@ -26,16 +29,16 @@ if __name__ == '__main__':
     print(f"{len(df.index)} items found based on used regex\n")
 
     # let's get everything with <50% offload
-    bad_offload = df[df['allBytesOffload'] < 50]
+    bad_offload = df[df['allBytesOffload'] < offload]
 
     # let's sort our results on offload and edgebytes
     output = (bad_offload.sort_values(
         ['allBytesOffload', 'allOriginBytes'], ascending=[True, False]))
 
-    print(f"we have {len(output.index)} objects with a low offload %\n")
+    print(f"we have {len(output.index)} objects with a offload of {offload}%\n")
 
     # let's creat a .csv with all objects with a low offload and let's ignore the index
-    output.to_csv(f"results/{reporting.end}.csv", index=False)
+    output.to_csv(f"results/urls-{reporting.end}.csv", index=False)
 
     print(
         f"top 5 files with low offload. The complete list can be found here: results/{reporting.end}.csv\n")
