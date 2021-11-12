@@ -43,6 +43,7 @@ if __name__ == '__main__':
     cpcodes = reporting.get_all_cpcodes()
 
     # now create a new column with the cpcodename mapping in this dataframe
+    # it will now be end of the list, we might want to resort it.
     output["cpcodeName"] = output["cpcode"].map(cpcodes)
     print(output.head(10))
 
