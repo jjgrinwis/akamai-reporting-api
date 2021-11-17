@@ -1,6 +1,7 @@
 import pandas as pd
 from myakamai import MyAkamai
 
+
 if __name__ == "__main__":
     # our section from .edgerc file
     SECTION = "gss"
