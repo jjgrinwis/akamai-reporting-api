@@ -1,21 +1,18 @@
-from numpy import int16, int64
-from numpy.core.numeric import outer
-from myakamai import MyAkamai
 import pandas as pd
+from myakamai import MyAkamai
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     # our section from .edgerc file
-    section = 'gss'
+    SECTION = "gss"
 
     # cpcodes list to filter on specific cpcodes
     cpcodes = []
 
     # offload minimum
-    offload = 70
+    OFFLOAD = 70
 
     # create connection to Akamai reporting API endpoint.
-    reporting = MyAkamai(section)
+    reporting = MyAkamai(SECTION)
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.
@@ -26,17 +23,17 @@ if __name__ == '__main__':
     df = df.astype({"originBytes": int})
     df = df.astype({"midgressBytes": int})
     df = df.astype({"bytesOffload": float})
-    df['bytesOffload'] = df['bytesOffload'].round(decimals=2)
+    df["bytesOffload"] = df["bytesOffload"].round(decimals=2)
 
     # now lets sort on low offload with high edgebytes
-    bad_offload = df[df['bytesOffload'] < offload]
+    bad_offload = df[df["bytesOffload"] < OFFLOAD]
 
     print(
-        f"found {len(bad_offload.index)} cpcodes with a offload lower than {offload}%\n")
+        f"found {len(bad_offload.index)} cpcodes with a offload lower than {OFFLOAD}%\n"
+    )
 
     # let's sort our results on delivered edgebytes
-    output = (bad_offload.sort_values(
-        ['edgeBytes'], ascending=[False]))
+    output = bad_offload.sort_values(["edgeBytes"], ascending=[False])
 
     # let's get our dict of cpcodeId:cpcodeName
     # this is going to be used to map a cpcode to cpcodeName
