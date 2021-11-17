@@ -17,9 +17,9 @@ class MyAkamai():
         self.baseurl = 'https://%s' % self.edgerc.get(self.section, 'host')
 
         # our account switchkey so we can check any account, GSS only!
-        # set environment var to get it none if not set.
+        # set environment var to get it, none if not set.
         self.ask = os.getenv('ASK')
-        print(self.ask)
+        print(f"using accountSwitchKey: {self.ask}")
 
         # set start and end date
         # let's use an interval of 7 days
@@ -50,6 +50,7 @@ class MyAkamai():
         r = self.s.post(url, json=body)
 
         # if we have some resuls, only return data part from results
+        # convert json to dict and only return data part
         if r.status_code == requests.codes.ok:
             results = r.json()
             return(results["data"])
@@ -114,9 +115,6 @@ class MyAkamai():
 
 
 if __name__ == '__main__':
-    # accountSwitchKey (Akamai internal)
-    accountSwitchKey = ""
-
     # user cpcodes list to filter on specific cpcodes
     cpcodes = []
     section = 'gss'
