@@ -5,8 +5,7 @@ import pandas as pd
 
 
 if __name__ == '__main__':
-    # accountSwitchKey (Akamai internal)
-    accountSwitchKey = ""
+    # our section from .edgerc file
     section = 'gss'
 
     # cpcodes list to filter on specific cpcodes
@@ -16,7 +15,7 @@ if __name__ == '__main__':
     offload = 70
 
     # create connection to Akamai reporting API endpoint.
-    reporting = MyAkamai(section, accountSwitchKey)
+    reporting = MyAkamai(section)
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.

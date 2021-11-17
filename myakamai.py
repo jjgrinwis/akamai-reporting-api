@@ -1,22 +1,25 @@
 from akamai.edgegrid import EdgeGridAuth, EdgeRc
 from urllib.parse import urljoin
-from pprint import pprint as pp
 
 import requests
 import datetime
 import os
 
+from requests import status_codes
+
 
 class MyAkamai():
     ''' Akamai class that creates an EdgeGridAuth API connection using 'default' section from .edgerc file from $HOME '''
 
-    def __init__(self, section='default', switchkey=""):
+    def __init__(self, section='default'):
         self.edgerc = EdgeRc('{}/.edgerc'.format(os.environ.get('HOME')))
         self.section = section
         self.baseurl = 'https://%s' % self.edgerc.get(self.section, 'host')
 
         # our account switchkey so we can check any account, GSS only!
-        self.ask = switchkey
+        # set environment var to get it none if not set.
+        self.ask = os.getenv('ASK')
+        print(self.ask)
 
         # set start and end date
         # let's use an interval of 7 days
@@ -118,8 +121,9 @@ if __name__ == '__main__':
     cpcodes = []
     section = 'gss'
 
-    reporting = MyAkamai(section, accountSwitchKey)
+    reporting = MyAkamai(section)
     # print(reporting.get_hits_by_cpcode(cpcodes))
 
     # now let's get our cpcode dictionary
     cpcodes = reporting.get_all_cpcodes()
+    print(cpcodes)
