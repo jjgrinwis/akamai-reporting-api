@@ -105,12 +105,13 @@ class MyAkamai:
 
         # create our url to get all the cpcodes
         # https://techdocs.akamai.com/cp-codes/reference/cpcodes
-        url = urljoin(self.baseurl, f"/cprg/v1/cpcodes?accountSwitchKey={self.ask}")
+        url = urljoin(
+            self.baseurl, f"/cprg/v1/cpcodes?accountSwitchKey={self.ask}")
 
         # get al cpcodes from our cpcodes endpoint
         request = self.ses.get(url)
 
-        # if everthing is ok, let create a dict with our cpcode info
+        # if everthing is ok, let's create a dict with our cpcode info
         if request.status_code == requests.codes.ok:
             results = request.json()
 
