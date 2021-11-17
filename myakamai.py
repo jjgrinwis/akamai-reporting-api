@@ -5,8 +5,6 @@ import requests
 import datetime
 import os
 
-from requests import status_codes
-
 
 class MyAkamai():
     ''' Akamai class that creates an EdgeGridAuth API connection using 'default' section from .edgerc file from $HOME '''
