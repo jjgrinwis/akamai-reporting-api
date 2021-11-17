@@ -19,6 +19,7 @@ if __name__ == '__main__':
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.
+    # we should be able to use "pd.DataFrame.from_dict(d, orient='columns').astype({'a':int,'b':int})""
     df = pd.DataFrame.from_dict(reporting.get_hits_by_cpcode(cpcodes))
     df = df.astype({"edgeBytes": int})
     df = df.astype({"cpcode": int})
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     cpcodes = reporting.get_all_cpcodes()
 
     # now create a new column with the cpcodename mapping in this dataframe
+    # it will now be end of the list, we might want to resort it.
     output["cpcodeName"] = output["cpcode"].map(cpcodes)
     print(output.head(10))
 
