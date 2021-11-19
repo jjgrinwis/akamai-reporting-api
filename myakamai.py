@@ -100,7 +100,6 @@ class MyAkamai:
     def get_all_cpcodes(self):
         """return a dict with all cpcodeId:cpcodeName"""
 
-        # create an empty dict
         cpcodes = {}
 
         # create our url to get all the cpcodes
