@@ -9,7 +9,7 @@ if __name__ == "__main__":
     # cpcodes list to filter on specific cpcodes
     cpcodes = []
 
-    # offload minimum
+    # offload minimum percentage
     OFFLOAD = 70
 
     # create connection to Akamai reporting API endpoint.

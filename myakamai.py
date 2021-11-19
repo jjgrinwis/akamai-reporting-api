@@ -85,8 +85,8 @@ class MyAkamai:
             f"T00%3A00%3A00Z&end={self.end}T00%3A00%3A00Z&interval=DAY&accountSwitchKey={self.ask}",
         )
 
-        print(url)
-        # let's get our results. requests module will convert to json.
+        # print(url)
+        # let's get our results. requests module will convert body dict to json.
         req = self.ses.post(url, json=body)
 
         # if we have some resuls, only return data part from results
@@ -105,8 +105,7 @@ class MyAkamai:
 
         # create our url to get all the cpcodes
         # https://techdocs.akamai.com/cp-codes/reference/cpcodes
-        url = urljoin(
-            self.baseurl, f"/cprg/v1/cpcodes?accountSwitchKey={self.ask}")
+        url = urljoin(self.baseurl, f"/cprg/v1/cpcodes?accountSwitchKey={self.ask}")
 
         # get al cpcodes from our cpcodes endpoint
         request = self.ses.get(url)
