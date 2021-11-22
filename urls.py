@@ -17,11 +17,9 @@ if __name__ == "__main__":
 
     # now let's load our list as a panda's dataframe and set the correc decimals.
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.
-    # there should be a better way of setting the types per column.
-    df = pd.DataFrame.from_dict(reporting.get_urls_by_cpcode(cpcodes))
-    df = df.astype({"allEdgeBytes": int})
-    df = df.astype({"allOriginBytes": int})
-    df = df.astype({"allBytesOffload": float})
+    df = pd.DataFrame.from_dict(reporting.get_urls_by_cpcode(cpcodes)).astype(
+        {"allEdgeBytes": int, "allOriginBytes": int, "allBytesOffload": float}
+    )
     df["allBytesOffload"] = df["allBytesOffload"].round(decimals=2)
 
     print(f"{len(df.index)} items found based on used regex\n")

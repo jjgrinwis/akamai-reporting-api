@@ -17,12 +17,15 @@ if __name__ == "__main__":
 
     # now let's load our list as a panda's dataframe and set correct type and numer of decimals
     # the from_dict is setting every column to an object(df.info()) so we need to fix that.
-    df = pd.DataFrame.from_dict(reporting.get_hits_by_cpcode(cpcodes))
-    df = df.astype({"edgeBytes": int})
-    df = df.astype({"cpcode": int})
-    df = df.astype({"originBytes": int})
-    df = df.astype({"midgressBytes": int})
-    df = df.astype({"bytesOffload": float})
+    df = pd.DataFrame.from_dict(reporting.get_hits_by_cpcode(cpcodes)).astype(
+        {
+            "edgeBytes": int,
+            "cpcode": int,
+            "originBytes": int,
+            "midgressBytes": int,
+            "bytesOffload": float,
+        }
+    )
     df["bytesOffload"] = df["bytesOffload"].round(decimals=2)
 
     # now lets sort on low offload with high edgebytes
@@ -35,8 +38,7 @@ if __name__ == "__main__":
     # let's sort our results on delivered edgebytes
     output = bad_offload.sort_values(["edgeBytes"], ascending=[False])
 
-    # let's get our dict of cpcodeId:cpcodeName
-    # this is going to be used to map a cpcode to cpcodeName
+    # get our dict of cpcodeId:cpcodeName to map a cpcode to cpcodeName in dataframe
     cpcodes = reporting.get_all_cpcodes()
 
     # now create a new column with the cpcodename mapping in this dataframe
