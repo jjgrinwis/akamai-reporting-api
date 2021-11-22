@@ -20,7 +20,8 @@ class MyAkamai:
         # our account switchkey so we can check any account, GSS only!
         # set environment var to get it, none if not set.
         self.ask = os.getenv("ASK")
-        print(f"using accountSwitchKey: {self.ask}")
+        if self.ask:
+            print(f"using accountSwitchKey: {self.ask}")
 
         # set start and end date
         # let's use an interval of 7 days
